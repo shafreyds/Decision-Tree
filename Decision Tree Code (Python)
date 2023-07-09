@@ -36,3 +36,20 @@ tree_rules = export_text(clf,feature_names = list(feature_names))
 print(tree_rules)
 
 test_pred_decision_tree = clf.predict(test_x)
+
+from sklearn import metrics
+import seaborn as sns
+import matplotlib.pyplot as plt
+confusion_matrix = metrics.confusion_matrix(test_lab,
+test_pred_decision_tree)
+matrix_df = pd.DataFrame(confusion_matrix)
+ax = plt.axes()
+sns.set(font_scale=1.3)
+plt.figure(figsize=(10,7))
+sns.heatmap(matrix_df, annot=True, fmt="g", ax=ax, cmap="magma")
+ax.set_title('Confusion Matrix - Decision Tree')
+ax.set_xlabel("Predicted label", fontsize =15)
+ax.set_xticklabels(['']+labels)
+ax.set_ylabel("True Label", fontsize=15)
+ax.set_yticklabels(list(labels), rotation = 0)
+plt.show()
